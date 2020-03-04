@@ -7,10 +7,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
+const val CHILD_REQUEST_CODE = 0
 
 class MainActivity : AppCompatActivity() {
 
     var logRecordNumber = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +28,33 @@ class MainActivity : AppCompatActivity() {
         }
 
         newActivityButton.setOnClickListener {
-            // TODO: стартовать новую активность используя startActivityForResult(...)
+            val intent = Intent(this, ChildActivity::class.java)
+            startActivityForResult(intent, CHILD_REQUEST_CODE)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // TODO: получить результат запущенной активности
+        when (requestCode) {
+            CHILD_REQUEST_CODE -> {
+                val result = data?.extras?.getString("result")
+                message("Возврат из дочерней Activity с результатом $result")
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        // TODO: сохранить счётчик записей в лог
+        outState?.putInt("logRecordNumber", logRecordNumber)
+        message("onSaveInstanceState - save logRecordNumber: $logRecordNumber")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState?.getInt("logRecordNumber")?.let {
+            message("onRestoreInstanceState - logRecordNumber: $logRecordNumber --> $it")
+            logRecordNumber = it
+        }
     }
 
     override fun onResume() {
