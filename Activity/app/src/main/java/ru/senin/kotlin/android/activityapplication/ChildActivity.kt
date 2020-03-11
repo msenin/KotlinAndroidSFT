@@ -14,18 +14,18 @@ class ChildActivity : AppCompatActivity() {
         setContentView(R.layout.activity_child)
 
         childCloseOkButton.setOnClickListener {
-            finishWithResult("Ok")
+            finishWithResult("Ok", Activity.RESULT_OK)
         }
 
         childCloseCancelButton.setOnClickListener {
-            finishWithResult("Cancel")
+            finishWithResult("Cancel", Activity.RESULT_CANCELED)
         }
     }
 
-    private fun finishWithResult(resultString: String) {
+    private fun finishWithResult(resultString: String, resultCode: Int) {
         val intent = Intent()
         intent.putExtra("result", resultString)
-        setResult(Activity.RESULT_OK, intent)
+        setResult(resultCode, intent)
         finish()
     }
 
