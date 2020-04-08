@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="server_url"
+            app:title="@string/server_url"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="store"
+            app:entries="@array/store_password_entries"
+            app:entryValues="@array/store_password_values"
+            app:key="store"
+            app:title="@string/store_password_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/Misc_header">
+
+        <SwitchPreferenceCompat
+            app:key="show_toasts"
+            app:summaryOff="@string/show_toasts_summary_off"
+            app:summaryOn="@string/show_toasts_summary_on"
+            app:title="@string/show_toasts_title"
+            app:defaultValue="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

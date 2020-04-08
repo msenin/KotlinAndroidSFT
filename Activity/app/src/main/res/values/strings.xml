@@ -4,16 +4,14 @@
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="Misc_header">Misc</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="server_url">Server URL</string>
+    <string name="store_password_title">Store password</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- Misc Preferences -->
+    <string name="show_toasts_title">Всплывающие сообщения</string>
+    <string name="show_toasts_summary_on">Сообщения о статусе Activity включены</string>
+    <string name="show_toasts_summary_off">Сообщения о статусе Activity отключены</string>
 </resources>

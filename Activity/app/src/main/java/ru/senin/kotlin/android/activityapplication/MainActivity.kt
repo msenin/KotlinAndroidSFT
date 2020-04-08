@@ -1,17 +1,21 @@
 package ru.senin.kotlin.android.activityapplication
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val CHILD_REQUEST_CODE = 0
 
 class MainActivity : AppCompatActivity() {
 
-    var logRecordNumber = 0
+    private var logRecordNumber = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +32,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         newActivityButton.setOnClickListener {
-            val intent = Intent(this, ChildActivity::class.java)
-            startActivityForResult(intent, CHILD_REQUEST_CODE)
+            startChildActivity()
         }
+    }
+
+    private fun startChildActivity() {
+        val intent = Intent(this, ChildActivity::class.java)
+        startActivityForResult(intent, CHILD_REQUEST_CODE)
+    }
+
+    private fun showSettings() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,11 +96,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun message(message: String) {
-        Toast.makeText(
-            applicationContext,
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
+        val sharedPref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val showToasts = sharedPref.getBoolean("show_toasts", true)
+        if (showToasts) {
+            Toast.makeText(
+                applicationContext,
+                message,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
         Log.d("LifeCycle", message)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.settings, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.toolbarChildActivity -> {
+                startChildActivity()
+                return true
+            }
+            R.id.toolbarSettings -> {
+                showSettings()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
