@@ -8,7 +8,7 @@ import ru.senin.kotlin.android.activityapplication.db.Message
 
 class MessagesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = MessagesRepository( MessagesDatabase(application).dao())
+    private val repository = MessagesRepository(MessagesDatabase(application).dao())
     val messages = repository.messages
 
     fun insertMessage(message: Message) = viewModelScope.launch {

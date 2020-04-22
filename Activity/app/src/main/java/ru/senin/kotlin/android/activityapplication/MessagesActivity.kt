@@ -18,14 +18,11 @@ import ru.senin.kotlin.android.activityapplication.db.*
 class MessagesActivity : AppCompatActivity() {
 
     private lateinit var adapter: RecyclerView.Adapter<MessagesAdapter.MessagesViewHolder>
-    private lateinit var database: MessagesDatabase
     private lateinit var model: MessagesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_messages)
-
-        database = MessagesDatabase(this)
 
         // DEBUG DATA
         insertTestMessages()
@@ -43,6 +40,7 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun insertTestMessages() {
+        val database = MessagesDatabase(this)
         runBlocking {
             val dao = database.dao()
             dao.deleteAllMessages()
@@ -62,7 +60,7 @@ class MessagesActivity : AppCompatActivity() {
                 Message(
                     "sidorov",
                     "pupkin",
-                    "Hi1",
+                    "Hi!",
                     1585246920
                 )
             )
