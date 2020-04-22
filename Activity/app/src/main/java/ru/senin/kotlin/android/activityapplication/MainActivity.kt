@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 const val CHILD_REQUEST_CODE = 0
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var logRecordNumber = 0
 
@@ -33,6 +33,13 @@ class MainActivity : AppCompatActivity() {
 
         newActivityButton.setOnClickListener {
             startChildActivity()
+        }
+
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        sharedPref.registerOnSharedPreferenceChangeListener(this)
+
+        showMessagesButton.setOnClickListener {
+            startActivity(Intent(this, MessagesActivity::class.java))
         }
     }
 
@@ -96,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun message(message: String) {
-        val sharedPref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         val showToasts = sharedPref.getBoolean("show_toasts", true)
         if (showToasts) {
             Toast.makeText(
@@ -105,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+        sharedPref.edit().putString("secretKey", "AAAAA").apply()
         Log.d("LifeCycle", message)
     }
 
@@ -125,5 +133,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        message("Preference changed: $key")
     }
 }

@@ -8,6 +8,8 @@
         android:title="Новая активность"/>
     <item
         android:id="@+id/toolbarSettings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="always"
         android:title="Настройки"
         />
 </menu>
