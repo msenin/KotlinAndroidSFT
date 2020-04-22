@@ -11,15 +11,15 @@ class MessagesViewModel(application: Application) : AndroidViewModel(application
     private val repository = MessagesRepository( MessagesDatabase(application).dao())
     val messages = repository.messages
 
-    fun insert(message: Message) = viewModelScope.launch {
+    fun insertMessage(message: Message) = viewModelScope.launch {
         repository.insert(message)
     }
 
-    fun delete(message: Message) = viewModelScope.launch {
+    fun deleteMessage(message: Message) = viewModelScope.launch {
         repository.delete(message)
     }
 
-    fun deleteAll() = viewModelScope.launch {
+    fun deleteAllMessages() = viewModelScope.launch {
         repository.deleteAll()
     }
 }
